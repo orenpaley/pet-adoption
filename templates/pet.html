@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+{% block title %} {{pet.name}} {% endblock %}
+
+{% block content %}
+<h1>{{pet.name}}</h1>
+
+<div>
+<img src="{{pet.image_url}}" class="img-fluid img-thumbnail mx-auto" alt="picture of {{pet.name}}"
+</div>
+
+<div class="container mx-auto">
+  <div class="row">
+    <div class="col d-flex justify-content-center">Name</div>
+    <div class="col d-flex justify-content-center">{{pet.name}}</div>
+    <div class="w-100"></div>
+    <div class="col d-flex justify-content-center">Species</div>
+    <div class="col d-flex justify-content-center">{{pet.species}}</div>
+    <div class="w-100"></div>
+    <div class="col d-flex justify-content-center">Age</div>
+    <div class="col d-flex justify-content-center">{{pet.age}}</div>
+    <div class="w-100"></div>
+    <div class="col d-flex justify-content-center">Notes</div>
+    <div class="col d-flex justify-content-center">{{pet.notes}}</div>
+    <div class="w-100"></div>
+    <div class="col d-flex justify-content-center">Available?</div>
+    {% if pet.available %}
+    <div class="col d-flex justify-content-center text-success">Yes</div>
+    {% else %}
+    <div class="col d-flex justify-content-center text-danger">No</div>
+    {% endif %}
+  </div>
+</div>
+
+<h1>Edit Info for {{pet.name}}</h1>
+<form method="POST">
+{{ form.hidden_tag() }} 
+
+{% for field in form 
+    if field.widget.input_type != 'hidden' %}
+
+  <p>
+    {{field.label}}
+    {{field}}
+
+    {% for error in field.errors %}
+      {{ error }}
+    {% endfor %}
+  </p>
+ {% endfor %} 
+
+ <button>Update Pet</button>
+</form>
+
+<form action="/" class='mx-auto'>
+  <button class="mx-auto">Back</button>
+</form>
+
+
+{% endblock %}

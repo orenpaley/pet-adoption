@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% block title %} Pet Adoption Agency {% endblock %}
+
+{% block content %}
+<h1>List of Pets</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <td>Profile Image</td>
+      <td>Name</td>
+      <td>Species</td>
+      <td>Age</td>
+      <td>Is Available</td>
+      <td>Notes</td>
+    </tr>
+  </thead>
+  <tbody>
+  {% for pet in pets %}
+ <tr>
+  <a href="/add.html">
+      {% if pet.image_url %}
+        <td><img src="{{pet.image_url}}" width="100"></img></td>
+      {% else %}
+      <td><img src="https://i.pinimg.com/564x/47/77/ae/4777ae0906dd0113ad0bb00d61125d1b.jpg" width="100"></img></td>
+      {% endif %}
+      <td><a href="/{{pet.id}}">{{pet.name}}</a></td>
+      <td>{{pet.species}}</td>
+      <td>{{pet.age}}</td>
+      <td>{{pet.available}}</td>
+      <td>{{pet.notes}}</td>
+ </tr>  
+  {% endfor %}
+
+  </tbody>
+</table>
+
+<form action="/add">
+  <button>Add Pet</button>
+</form>
+{% endblock %}
